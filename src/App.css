@@ -1,0 +1,198 @@
+
+.App {
+  text-align: center;
+
+}
+
+.inp {
+  font-family: FontAwesome;
+  margin-top: 2%;
+  height: 40px;
+  width: 600px;
+  padding-left: 1%;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-color: transparent;
+}
+
+.font{
+  margin-right: 1%;
+ 
+}
+.go{
+  color: white;
+  background-color:orange;
+  padding: 5px 20px 8px 20px;
+  font-weight: bold;
+  border-radius: 8px;
+  border: solid rgb(245, 237, 237);
+  
+  
+}
+.flec{
+  display: flex;
+  
+  
+  /* border: 2px solid blue; */
+justify-content: space-around;
+width: 70%;
+margin: auto;
+margin-top: 2%;
+}
+.five{
+  border: 2px solid green ;
+  height: 140px;
+  width: 100px;
+  
+  
+}
+
+.left{
+  
+  
+  height: fit-content;
+  margin-top: 3%;
+  
+}
+
+
+.tab{
+  display: flex;
+  justify-content: space-evenly;
+  border: 1px solid white;
+  margin-top: 5%;
+  /* width: 110%; */
+  
+}
+.clouds{
+  margin-left: 5%;
+ 
+  display: flex;
+}
+
+.name{
+  display: grid;
+  margin-top: 4%;
+  justify-content: start;
+  
+  }
+
+@media only screen and (min-width:768px){
+  .main{
+    width: 750px;
+    margin: auto;
+    margin-top: 1%;
+  }
+}
+
+.weekName{
+  /* border: 2px solid black; */
+  font-weight: bold;
+  color: blue;
+  width: 17%;
+  height: 30px;
+  
+  
+}
+.main{
+  margin-top: 1%;
+ 
+}
+
+.up{
+  display: flex;
+  
+  
+}
+.down{
+  display: flex;
+  justify-content: space-around;
+  /* border: 2px solid black; */
+}
+.weektemp{
+  /* border: 2px solid yellow; */
+  width: 10%;
+  color: orange;
+  font-weight: bold;
+ 
+}
+
+#gmap_canvas{
+width: 100%;
+
+}
+.chart{
+  /* border: 2px solid red; */
+  
+  margin: auto;
+  margin-top: 5%;
+  width: fit-content;
+  padding: 1%;
+  
+
+  
+}
+.pressure{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4%;
+}
+.pre{
+  width: 49%;
+  
+ color: blue;
+  
+}
+.sun{
+  margin-top: 4%;
+  
+  
+}
+.set{
+  width: 49%;
+  color: orange;
+}
+
+.week{
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; 
+  margin-right: 2%;
+  margin-left: 2%;
+  
+}
+.item{
+  border: 2px solid black;
+  width: 90%;
+  padding: 10px ;
+  margin-top: 2px;
+ border-radius: 25px;
+}
+.bada{
+  height: 100px; 
+  overflow: scroll;
+  /* overflow-y: hidden; 
+  overflow-x: hidden; */
+  /* overflow: hidden; */
+  width: 45%;
+   margin: auto;
+   margin-top: 10px;
+
+   -ms-overflow-style: none; 
+   scrollbar-width: none;  
+   overflow-y: scroll; 
+}
+.bada::-webkit-scrollbar{
+  display: none;
+}
+.map{
+  margin-top: 5%;
+  
+}
+.left{
+  padding-top: 5%;
+  padding-bottom: 5%;
+  border-radius: 25px;
+  box-shadow: rgba(0, 0, 3, 0.35) 0px 5px 15px; 
+}
+iframe{
+  border-radius: 25px;
+}
