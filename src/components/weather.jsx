@@ -344,15 +344,18 @@ export const Weather = ()=>{
   const [dat, setDat] = useState({})
   const [fore, setFore]= useState({})
   const [hour, setHour]= useState([])
+
   const arr = [];
 // 
   const [fal, setFal] = useState(false)
   
   const handle = (e) => {
-      const { value } = e.target;
-      setVal(value);
-      debounce(tru,1000)
+    const { value } = e.target;
+    setVal(value);
+      debounce(tru,500)
       setFal(false)
+      
+     
    };
 // 
    const tru=()=>{
@@ -370,6 +373,7 @@ export const Weather = ()=>{
         },delay);
     }
     const Submit =()=>{
+      setFal(false)
         axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${val}&appid=049a286bc9499619754eac4684c2454c`)
         .then((res)=>{setDat(res.data)
         if(val.city !==''){
@@ -390,13 +394,14 @@ export const Weather = ()=>{
     arr.push(obj)
     }
     setHour(arr)
+    
     console.log("hour",hour)
     })
        
        
     }).catch(error=>console.log(error));
 
-    setFal(false)
+    
   }
   
 
@@ -412,6 +417,7 @@ export const Weather = ()=>{
         ];
     
     const date = [];
+    
     
         for (let count = 0; count < 8; count++) {
           if (d.getDay() + count < 7) date[count] = d.getDay() + count;
@@ -450,14 +456,8 @@ export const Weather = ()=>{
                            }
                          }).map((item)=>{
                            return (
-                             <div  className="item">
+                             <div  className="item" >
                             {item} 
-    
-  
-                           
-                           
-                     
-                            
                              </div>
                            )
                          })}
@@ -478,6 +478,7 @@ export const Weather = ()=>{
             onChange={handle}
             className= "inp"
             placeholder='Type location'
+            onKeyPress={(e)=>{if(e.key==="Enter"){Submit()}}}
             ></input>
             
             <button onClick={Submit} className="go">Search</button>
@@ -510,16 +511,7 @@ export const Weather = ()=>{
                          </div>)}
                           </div>
                            :""}
-                                 </div> 
-
-              
-
-
-
-
-
-                 
-
+                                 </div>
 <div className="name">
     <div className="name1">
     <h3>{dat?dat.name:""}</h3>
@@ -543,7 +535,8 @@ export const Weather = ()=>{
         <XAxis dataKey="time" />
         <YAxis  />
             <Tooltip />
-         <Area type="line" dataKey="temp" stroke="blue" fill="transparent" />
+         <Area  dataKey="temp" stroke="blue" fill="transparent" />
+         
             </AreaChart>
         
      </div>
@@ -561,11 +554,11 @@ export const Weather = ()=>{
 <div className="pressure sun">
     <div className="set">
         <div>Sunrise</div>
-        <div>{new Date(dat.sys.sunrise * 1000).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}am</div>
+        <div>{new Date(dat.sys.sunrise * 1000).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}</div>
     </div>
     <div className="set">
         <div>Sunset</div>
-        <div>{new Date(dat.sys.sunset * 1000).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}pm</div>
+        <div>{new Date(dat.sys.sunset * 1000).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}</div>
  </div>
 </div>
 
