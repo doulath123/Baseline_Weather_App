@@ -352,7 +352,7 @@ export const Weather = ()=>{
   const handle = (e) => {
     const { value } = e.target;
     setVal(value);
-      debounce(tru,5000)
+      debounce(tru,500)
       setFal(false)
       
      
@@ -372,11 +372,15 @@ export const Weather = ()=>{
             funct()
         },delay);
     }
+   
     const Submit =()=>{
+      
       setFal(false)
         axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${val}&appid=049a286bc9499619754eac4684c2454c`)
         .then((res)=>{setDat(res.data)
+         
         if(val.city !==''){
+         
           setList(true)
         }
     }).catch(error=>console.log(error));
@@ -384,8 +388,9 @@ export const Weather = ()=>{
     axios.get(`https://api.openweathermap.org/geo/1.0/direct?q=${val}&limit=5&appid=049a286bc9499619754eac4684c2454c`)
     .then((res)=>{
     axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${res.data[0].lat}&lon=${res.data[0].lon}&exclude=current,minutelyalerts&units=metric&appid=049a286bc9499619754eac4684c2454c`).then((res)=>{
-    console.log("one", res.data)
+   
     setFore(res.data)
+    
            
     for(var i = 0; i<19; i++){
     var obj = {temp:res.data.hourly[i].temp,
@@ -458,6 +463,7 @@ export const Weather = ()=>{
                            return (
                              <div  className="item" >
                             {item} 
+                            
                              </div>
                            )
                          })}
@@ -468,6 +474,7 @@ export const Weather = ()=>{
        
        
       }
+      const srs=[{Sun:-1,b:"4:00  🌑"},{Sun:0,b:"6:00  ☀️"},{Sun:1,b:"7:30  ☀️"},{Sun:2,b:"9:00  ☀️"},{Sun:3,b:"10:30  ☀️"},{Sun:4,b:"12:00  ☀️"},{Sun:5,b:"1:00  ☀️"},{Sun:4,b:"2:30  ☀️"},{Sun:3,b:"3:00  ☀️"},{Sun:2,b:"4:00  ☀️"},{Sun:1,b:"5:30  ☀️"},{Sun:0,b:"6:30  ☀️"},{Sun:-1,b:"8:30  🌑"}]
     return (
        
         <div className="second">
@@ -482,7 +489,6 @@ export const Weather = ()=>{
             />
              <span onClick={Submit}  className="spns"> <FontAwesomeIcon className="font fa-2xl" icon={faMagnifyingGlass} /> </span>
             
-            {/* <button onClick={Submit} className="go">Search</button> */}
             </div>
             {
       fal===true? <Ret/>:""
@@ -517,9 +523,10 @@ export const Weather = ()=>{
     <div className="name1">
     <h3>{dat?dat.name:""}</h3>
     </div>
-   
+  
     <div className="clouds">
     <h1> {(dat?.main?.temp - 273.15).toFixed(1)}°C</h1>
+   
     <img className="icon" src={ `http://openweathermap.org/img/wn/${ dat.weather[0].icon}.png`} alt="" />
   </div>
     
@@ -536,7 +543,7 @@ export const Weather = ()=>{
         <XAxis dataKey="time" />
         <YAxis  />
             <Tooltip />
-         <Area  dataKey="temp" stroke="blue" fill="transparent" />
+         <Area  dataKey="temp" stroke="blue"  fill="transparent" />
          
             </AreaChart>
         
@@ -561,12 +568,28 @@ export const Weather = ()=>{
         <div>Sunset</div>
         <div>{new Date(dat.sys.sunset * 1000).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}</div>
  </div>
+ 
 </div>
-
+<div className="chart">
+    <AreaChart
+      width={720}
+       height={300}
+        data={srs}
+        >
+        <CartesianGrid strokeDasharray="1 1" />
+        <XAxis dataKey="b"/>
+        <YAxis  />
+            <Tooltip />
+         <Area type="monotone" dataKey="Sun" stroke="red" strokeWidth={7} strokeOpacity={1} fillOpacity={5} fill="orange" />
+         
+            </AreaChart>
+        
+     </div>
 </div>
 :<div> 
-<h2></h2>
-</div>} 
+
+</div>}
+
 <div className='map'>
          
          <iframe 
