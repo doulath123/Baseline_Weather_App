@@ -1,7 +1,7 @@
 
 import axios from "axios"
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faTemperatureLow } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faLocationDot, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import {  useState } from "react";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts'; 
 export const Weather = ()=>{
@@ -352,7 +352,7 @@ export const Weather = ()=>{
   const handle = (e) => {
     const { value } = e.target;
     setVal(value);
-      debounce(tru,500)
+      debounce(tru,5000)
       setFal(false)
       
      
@@ -395,7 +395,7 @@ export const Weather = ()=>{
     }
     setHour(arr)
     
-    console.log("hour",hour)
+  
     })
        
        
@@ -472,16 +472,17 @@ export const Weather = ()=>{
        
         <div className="second">
             <div className="inBox">
-            {/* <span className="spn"> <FontAwesomeIcon className="font fa-2xl" icon={faLocationDot} /> </span> */}
+            <span className="spnl"> <FontAwesomeIcon className="font fa-2xl" icon={faLocationDot} /> </span>
             <input
             value={val.city} 
             onChange={handle}
             className= "inp"
             placeholder='Type location'
             onKeyPress={(e)=>{if(e.key==="Enter"){Submit()}}}
-            ></input>
+            />
+             <span onClick={Submit}  className="spns"> <FontAwesomeIcon className="font fa-2xl" icon={faMagnifyingGlass} /> </span>
             
-            <button onClick={Submit} className="go">Search</button>
+            {/* <button onClick={Submit} className="go">Search</button> */}
             </div>
             {
       fal===true? <Ret/>:""
