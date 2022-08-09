@@ -352,7 +352,7 @@ export const Weather = ()=>{
   const handle = (e) => {
     const { value } = e.target;
     setVal(value);
-      debounce(tru,500)
+      debounce(tru,1000)
       setFal(false)
       
      
@@ -575,12 +575,13 @@ export const Weather = ()=>{
       width={720}
        height={300}
         data={srs}
+        
         >
         <CartesianGrid strokeDasharray="1 1" />
         <XAxis dataKey="b"/>
         <YAxis  />
             <Tooltip />
-         <Area type="monotone" dataKey="Sun" stroke="red" strokeWidth={7} strokeOpacity={1} fillOpacity={5} fill="orange" />
+         <Area type="monotone" dataKey="Sun" stroke="rgb(248, 118, 4)" fill="orange"  strokeWidth={7} strokeOpacity={1} fillOpacity={6} />
          
             </AreaChart>
         
