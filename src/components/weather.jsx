@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faLocationDot, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import {  useState } from "react";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts'; 
+
 export const Weather = ()=>{
    const array = [
         "Araria, Bihar",
@@ -339,11 +340,15 @@ export const Weather = ()=>{
         "Nawada, Bihar",
         "Patna, Bihar"
       ]
+      
+      
   const [list, setList] = useState(false)
-  const [val, setVal] = useState({city: ''});
+  const [val, setVal] = useState({});
   const [dat, setDat] = useState({})
   const [fore, setFore]= useState({})
   const [hour, setHour]= useState([])
+  const [rise, setRise]=useState();
+  const [set, setSet]=useState()
 
   const arr = [];
 // 
@@ -352,11 +357,12 @@ export const Weather = ()=>{
   const handle = (e) => {
     const { value } = e.target;
     setVal(value);
-      debounce(tru,1000)
+      debounce(tru,500)
       setFal(false)
       
      
    };
+   
 // 
    const tru=()=>{
     setFal(true)
@@ -374,14 +380,18 @@ export const Weather = ()=>{
     }
    
     const Submit =()=>{
+    
       
       setFal(false)
         axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${val}&appid=049a286bc9499619754eac4684c2454c`)
         .then((res)=>{setDat(res.data)
+          setRise(new Date(res.data.sys.sunrise * 1000).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}))
+          setSet(new Date(res.data.sys.sunset * 1000).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}))
          
         if(val.city !==''){
          
           setList(true)
+         
         }
     }).catch(error=>console.log(error));
 
@@ -391,6 +401,7 @@ export const Weather = ()=>{
    
     setFore(res.data)
     
+    
            
     for(var i = 0; i<19; i++){
     var obj = {temp:res.data.hourly[i].temp,
@@ -399,7 +410,7 @@ export const Weather = ()=>{
     arr.push(obj)
     }
     setHour(arr)
-    
+   
   
     })
        
@@ -474,7 +485,10 @@ export const Weather = ()=>{
        
        
       }
-      const srs=[{Sun:-1,b:"4:00  🌑"},{Sun:0,b:"6:00  ☀️"},{Sun:1,b:"7:30  ☀️"},{Sun:2,b:"9:00  ☀️"},{Sun:3,b:"10:30  ☀️"},{Sun:4,b:"12:00  ☀️"},{Sun:5,b:"1:00  ☀️"},{Sun:4,b:"2:30  ☀️"},{Sun:3,b:"3:00  ☀️"},{Sun:2,b:"4:00  ☀️"},{Sun:1,b:"5:30  ☀️"},{Sun:0,b:"6:30  ☀️"},{Sun:-1,b:"8:30  🌑"}]
+      const srs=[{Sun:0,b:rise}, {Sun:5,b:"1:00pm  ☀️"} ,{Sun:0,b:set}]
+   
+      
+     
     return (
        
         <div className="second">
@@ -562,7 +576,10 @@ export const Weather = ()=>{
 <div className="pressure sun">
     <div className="set">
         <div>Sunrise</div>
-        <div>{new Date(dat.sys.sunrise * 1000).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}</div>
+        <div>{new Date(dat.sys.sunrise * 1000).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}
+        {}
+        
+        </div>
     </div>
     <div className="set">
         <div>Sunset</div>
