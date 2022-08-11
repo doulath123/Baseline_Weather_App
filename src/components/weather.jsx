@@ -355,10 +355,10 @@ export const Weather = ()=>{
   const [fal, setFal] = useState(false)
   
   const handle = (e) => {
-    const { value } = e.target;
-    setVal(value);
+    
+    setVal(e.target.value);
       debounce(tru,500)
-      setFal(false)
+      
       
      
    };
@@ -380,7 +380,7 @@ export const Weather = ()=>{
     }
    
     const Submit =()=>{
-    
+     
       
       setFal(false)
         axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${val}&appid=049a286bc9499619754eac4684c2454c`)
@@ -400,6 +400,7 @@ export const Weather = ()=>{
     axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${res.data[0].lat}&lon=${res.data[0].lon}&exclude=current,minutelyalerts&units=metric&appid=049a286bc9499619754eac4684c2454c`).then((res)=>{
    
     setFore(res.data)
+   
     
     
            
@@ -499,7 +500,7 @@ export const Weather = ()=>{
             onChange={handle}
             className= "inp"
             placeholder='Type location'
-            onKeyPress={(e)=>{if(e.key==="Enter"){Submit()}}}
+            onKeyPress={(e)=>{if(e.key==="Enter"){e.target.value="";Submit()}}}
             />
              <span onClick={Submit}  className="spns"> <FontAwesomeIcon className="font fa-2xl" icon={faMagnifyingGlass} /> </span>
             
@@ -598,7 +599,7 @@ export const Weather = ()=>{
         <XAxis dataKey="b"/>
         <YAxis  />
             <Tooltip />
-         <Area type="monotone" dataKey="Sun" stroke="rgb(248, 118, 4)" fill="orange"  strokeWidth={7} strokeOpacity={1} fillOpacity={6} />
+         <Area type="monotone" dataKey="Sun" stroke="orange" fill="orange"  strokeWidth={4} strokeOpacity={5} />
          
             </AreaChart>
         
