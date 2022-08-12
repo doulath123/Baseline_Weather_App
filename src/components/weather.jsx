@@ -2,7 +2,7 @@
 import axios from "axios"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faLocationDot, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-import {  useState } from "react";
+import {  useState, useEffect } from "react";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts'; 
 
 export const Weather = ()=>{
@@ -343,17 +343,18 @@ export const Weather = ()=>{
       
       
   const [list, setList] = useState(false)
-  const [val, setVal] = useState({});
+  const [val, setVal] = useState("");
   const [dat, setDat] = useState({})
   const [fore, setFore]= useState({})
   const [hour, setHour]= useState([])
   const [rise, setRise]=useState();
   const [set, setSet]=useState()
 
+  
+
   const arr = [];
 // 
   const [fal, setFal] = useState(false)
-  
   const handle = (e) => {
     
     setVal(e.target.value);
@@ -380,15 +381,14 @@ export const Weather = ()=>{
     }
    
     const Submit =()=>{
-     
-      
       setFal(false)
         axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${val}&appid=049a286bc9499619754eac4684c2454c`)
         .then((res)=>{setDat(res.data)
+          
           setRise(new Date(res.data.sys.sunrise * 1000).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}))
           setSet(new Date(res.data.sys.sunset * 1000).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}))
          
-        if(val.city !==''){
+        if(val!==''){
          
           setList(true)
          
@@ -422,6 +422,36 @@ export const Weather = ()=>{
   }
   
 
+  const getData = (lon, lat) => {
+    axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=049a286bc9499619754eac4684c2454c&units=metric`)
+  .then((res)=>{setVal(res.data.name);
+    alert("please click search icon")
+    
+    }).catch(error=>console.log(error));
+  
+    
+  }
+
+  const currCityWeather = (position) => {
+    let lat=position.coords.latitude;
+    let lon=position.coords.longitude;
+   
+ 
+    getData(lon, lat);
+  }
+ 
+  const getlocation = () => { 
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(currCityWeather);
+     
+    
+    } else {
+      console.log("err")
+    }
+  }
+  useEffect(() => {
+    getlocation();
+  }, []);
     function dateBuilder(d) {
     const days = [
           "Sunday",
@@ -488,15 +518,16 @@ export const Weather = ()=>{
       }
       const srs=[{Sun:0,b:rise}, {Sun:5,b:"1:00pm  ☀️"} ,{Sun:0,b:set}]
    
-      
+     
      
     return (
        
         <div className="second">
+          
             <div className="inBox">
             <span className="spnl"> <FontAwesomeIcon className="font fa-2xl" icon={faLocationDot} /> </span>
             <input
-            value={val.city} 
+            value={val} 
             onChange={handle}
             className= "inp"
             placeholder='Type location'
