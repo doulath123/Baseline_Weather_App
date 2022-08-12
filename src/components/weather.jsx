@@ -381,6 +381,7 @@ export const Weather = ()=>{
     }
    
     const Submit =()=>{
+
       setFal(false)
         axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${val}&appid=049a286bc9499619754eac4684c2454c`)
         .then((res)=>{setDat(res.data)
@@ -525,7 +526,7 @@ export const Weather = ()=>{
         <div className="second">
           
             <div className="inBox">
-            <span className="spnl"> <FontAwesomeIcon className="font fa-2xl" icon={faLocationDot} /> </span>
+            <span className="spnl"> <FontAwesomeIcon onClick={getlocation} className="font fa-2xl" icon={faLocationDot} /> </span>
             <input
             value={val} 
             onChange={handle}
@@ -589,7 +590,7 @@ export const Weather = ()=>{
         <XAxis dataKey="time" />
         <YAxis  />
             <Tooltip />
-         <Area  dataKey="temp" stroke="blue"  fill="transparent" />
+         <Area type="monotone" dataKey="temp" strokeWidth={4}  />
          
             </AreaChart>
         
